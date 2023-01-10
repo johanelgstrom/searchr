@@ -1,0 +1,49 @@
+@import "elements";
+body {
+  background-color: $color-main;
+}
+.login {
+  height: calc(100vh - 175px);
+  @include tablet {
+    height: calc(100vh - 195px);
+  }
+  @include desktop {
+    height: calc(100vh - 295px);
+  }
+  .content-standard {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .middle-start-container {
+      form {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        input,
+        select {
+          min-height: 30px;
+          width: 100%;
+          background-color: $color-white;
+          border: none;
+          border-radius: 5px;
+        }
+        textarea {
+          min-height: 60px;
+          width: 100%;
+          background-color: $color-white;
+          border: none;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}

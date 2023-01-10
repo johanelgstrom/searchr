@@ -1,0 +1,38 @@
+@import "elements";
+body {
+  background-color: $color-main;
+}
+.dashboard {
+  // height: calc(100vh - 175px);
+  // @include tablet {
+  //   height: calc(100vh - 195px);
+  // }
+  // @include desktop {
+  //   height: calc(100vh - 295px);
+  // }
+  .content-standard {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    position: relative;
+
+    .cta-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 50px;
+      color: $color-white;
+      .btn {
+        width: 20%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}

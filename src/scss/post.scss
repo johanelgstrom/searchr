@@ -1,0 +1,105 @@
+@import "elements";
+body {
+  background-color: $color-main;
+}
+.post {
+  min-height: calc(100vh - 175px);
+  @include tablet {
+    min-height: calc(100vh - 195px);
+  }
+  @include desktop {
+    min-height: calc(100vh - 295px);
+  }
+  .content-standard {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .heading-container {
+      width: 100%;
+    }
+
+    .vertical-card {
+      input,
+      textarea,
+      select {
+        min-height: 50px;
+        width: 100%;
+        background-color: $color-white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+      }
+      textarea {
+        min-height: 100px;
+      }
+      .join-button-container {
+        width: 100%;
+        min-height: 85px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        @include tablet {
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+          height: 85px;
+        }
+        @include desktop {
+        }
+        .btn-secondary {
+          width: 100%;
+          min-width: unset;
+          min-height: 40px;
+          p {
+            font-size: 1rem;
+          }
+          @include tablet {
+            width: 165px;
+            min-height: unset;
+            p {
+              font-size: 1rem;
+            }
+          }
+          @include desktop {
+            width: 200px;
+            min-height: unset;
+            p {
+              font-size: 1.5rem;
+            }
+          }
+        }
+      }
+      .found-li {
+        list-style-type: none;
+        text-align: center;
+        position: absolute;
+        right: 7px;
+        bottom: 7px;
+        &::before {
+          content: "\2022";
+          color: green;
+          font-weight: bold;
+          display: inline-block;
+          width: 10px;
+          text-align: start;
+          @include tablet {
+            text-align: start;
+          }
+        }
+        @include tablet {
+          text-align: end;
+        }
+        @include desktop {
+          right: 40px;
+          bottom: 10px;
+        }
+      }
+    }
+  }
+}

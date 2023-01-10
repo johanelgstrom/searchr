@@ -1,0 +1,98 @@
+@import "elements";
+body {
+  background-color: $color-main;
+}
+.create-post {
+  min-height: calc(100vh - 175px);
+  @include tablet {
+    min-height: calc(100vh - 195px);
+  }
+  @include desktop {
+    min-height: calc(100vh - 295px);
+  }
+  .content-standard {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .heading-container {
+      margin-bottom: 30px;
+    }
+
+    .middle-container {
+      height: 100vh;
+      width: 75%;
+      form {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        .map-container {
+          height: 500px;
+          width: 100%;
+          margin-bottom: 20px;
+          .lat-long-container {
+            h3,
+            p {
+              display: inline-block;
+              margin: 0;
+              margin-right: 10px;
+              color: $color-white;
+            }
+          }
+
+          .marker {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: red;
+            top: 0;
+          }
+        }
+        #image {
+          text-align: center;
+          color: $color-white;
+          background-color: unset;
+        }
+        label > p {
+          color: $color-white;
+          margin: 0;
+          width: 100%;
+          text-align: start;
+          margin-bottom: 10px;
+        }
+        input,
+        textarea,
+        select {
+          min-height: 50px;
+          width: 100%;
+          background-color: $color-white;
+          border: none;
+          border-radius: 5px;
+          font-size: 1.1rem;
+          margin-bottom: 20px;
+        }
+        textarea {
+          min-height: 100px;
+        }
+        button {
+          max-height: 80px;
+          margin-top: 60px;
+          @include tablet {
+            margin-top: 30px;
+          }
+        }
+      }
+    }
+  }
+}

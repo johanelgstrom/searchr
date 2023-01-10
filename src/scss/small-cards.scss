@@ -1,0 +1,64 @@
+@import "elements";
+.small-card-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  @include tablet {
+    gap: 15px;
+  }
+  @include tablet {
+    gap: 20px;
+  }
+  a {
+    width: 100%;
+    text-decoration: none;
+    h3 {
+      color: $color-main;
+    }
+    p {
+      color: $color-black;
+    }
+    @include tablet {
+      width: 45%;
+    }
+    .small-card {
+      width: 100%;
+      padding: 10px;
+      border: 4px solid $color-main;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      &:hover {
+        background-color: $color-main-faded;
+      }
+
+      .img-container {
+        height: 200px;
+        width: 100%;
+        @include desktop {
+          height: 400px;
+        }
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+        }
+      }
+      .text-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+  .empty-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
