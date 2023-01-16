@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { latLng, LatLngExpression } from "leaflet";
+import { BackButton } from "../BackButton";
 
 interface ICreatePostProps {
   checkifLoggedIn(cookie: string): void;
@@ -71,7 +72,6 @@ export const CreatePost = (props: ICreatePostProps) => {
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setSelectedFile(e.target.files[0]);
-    console.log(selectedFile);
   };
 
   function DisplayPosition({ map }: any) {
@@ -91,17 +91,7 @@ export const CreatePost = (props: ICreatePostProps) => {
         map.off("move", onMove);
       };
     }, [map, onMove]);
-    return (
-      <>
-        <div className="lat-long-container">
-          <h3>Start position:</h3>
-          <p>
-            Latitude: {position.lat.toFixed(4)}, Longitude:{" "}
-            {position.lng.toFixed(4)}
-          </p>
-        </div>
-      </>
-    );
+    return <></>;
   }
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
@@ -133,8 +123,6 @@ export const CreatePost = (props: ICreatePostProps) => {
             img: response.data,
           },
         }).then((res) => {
-          console.log(res);
-
           setPostLink(`/post/${res.data}`);
           setSuccess(true);
         });
@@ -144,6 +132,7 @@ export const CreatePost = (props: ICreatePostProps) => {
     <>
       {props.loggedInResponse && props.cookies.userData !== undefined ? (
         <>
+          <BackButton link="/dashboard" />
           <section className="create-post m-standard">
             <div className="content-standard">
               <div className="heading-container">
@@ -160,6 +149,7 @@ export const CreatePost = (props: ICreatePostProps) => {
                     onChange={handleTitle}
                     value={title}
                     required
+                    id="title"
                   ></input>
                   <label htmlFor="description">
                     <p>Description</p>
@@ -169,14 +159,20 @@ export const CreatePost = (props: ICreatePostProps) => {
                     onChange={handleDescription}
                     value={description}
                     required
+                    id="description"
                   ></textarea>
                   <label htmlFor="category">
                     <p>Category</p>
                   </label>
-                  <select onChange={handleCategory} name="category" required>
-                    <option value="people">People</option>
-                    <option value="animal">Animals</option>
-                    <option value="object">Objects</option>
+                  <select
+                    onChange={handleCategory}
+                    name="category"
+                    required
+                    id="category"
+                  >
+                    <option value="People">People</option>
+                    <option value="Animal">Animals</option>
+                    <option value="Object">Objects</option>
                   </select>
                   <label htmlFor="image">
                     <p>Image</p>
@@ -192,7 +188,11 @@ export const CreatePost = (props: ICreatePostProps) => {
                     {map ? <DisplayPosition map={map} /> : null}
                     {displayMap}
                   </div>
-                  <button type="submit" className="btn btn-main">
+                  <button
+                    type="submit"
+                    className="btn btn-main"
+                    id="submit-btn"
+                  >
                     <p>Create</p>
                   </button>
                 </form>

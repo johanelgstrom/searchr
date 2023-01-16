@@ -4,7 +4,6 @@ require("./mongoose.js");
 //REQUIREMENTS
 const express = require("express");
 const cors = require("cors");
-const multer = require("multer");
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const UserModel = require("./models/UserModel.js");

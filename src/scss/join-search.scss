@@ -3,12 +3,15 @@ body {
   background-color: $color-main;
 }
 .join-search {
-  height: calc(100vh - 40px);
+  min-height: calc(100vh - 40px);
+  margin-top: 40px;
   @include tablet {
-    height: calc(100vh - 195px);
+    min-height: calc(100vh - 195px);
+    margin-top: 60px;
   }
   @include desktop {
-    height: calc(100vh - 295px);
+    min-height: calc(100vh - 120px);
+    margin-top: 60px;
   }
   .content-container {
     height: 100%;

@@ -62,7 +62,6 @@ export const JoinSearch = (props: IJoinSearchProps) => {
       position.coords.latitude,
       position.coords.longitude
     );
-    console.log(latLngLocation);
     setCurrentPosition(latLngLocation);
   };
 
@@ -169,7 +168,6 @@ export const JoinSearch = (props: IJoinSearchProps) => {
         coordinates: markers,
       },
     }).then((response) => {
-      console.log(response);
       if (response.status === 200) {
         setTimeout(() => {
           setRedirect(true);
@@ -196,10 +194,10 @@ export const JoinSearch = (props: IJoinSearchProps) => {
     <>
       {props.loggedInResponse && props.cookies.userData !== undefined ? (
         <>
-          <section className="join-search m-small">
+          <section className="join-search">
             <div className="content-container">
               <div className="heading-container">
-                <h1>{heading}</h1>
+                <h1 id="heading">{heading}</h1>
               </div>
               <div className="middle-container">
                 {errorState ? <p className="text-red">{errorMsg}</p> : <></>}
@@ -224,7 +222,11 @@ export const JoinSearch = (props: IJoinSearchProps) => {
                       </MapContainer>
                     </div>
                     <div className="button-container">
-                      <div className="btn btn-main" onClick={stopHandeler}>
+                      <div
+                        className="btn btn-main"
+                        onClick={stopHandeler}
+                        id="stop-search-btn"
+                      >
                         <p>Stop searching</p>
                       </div>
                     </div>

@@ -20,20 +20,34 @@ body {
     position: relative;
 
     .middle-start-container {
+      width: 100%;
+      min-height: 400px;
+      min-width: 325px;
       form {
         height: 75%;
         width: 100%;
+        max-width: 800px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-
-        input {
-          min-height: 30px;
+        label {
+          width: 100%;
+          text-align: start;
+        }
+        input,
+        textarea,
+        select {
+          height: 50px;
           width: 100%;
           background-color: $color-white;
           border: none;
           border-radius: 5px;
+          font-size: 1.1rem;
+          margin-bottom: 20px;
+        }
+        textarea {
+          min-height: 100px;
         }
       }
     }

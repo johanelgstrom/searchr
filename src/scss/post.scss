@@ -48,11 +48,13 @@ body {
           justify-content: center;
           align-items: center;
           gap: 20px;
-          height: 85px;
+          min-height: 85px;
+          flex-wrap: wrap;
         }
         @include desktop {
         }
-        .btn-secondary {
+        .btn-secondary,
+        .btn-danger {
           width: 100%;
           min-width: unset;
           min-height: 40px;
@@ -61,14 +63,14 @@ body {
           }
           @include tablet {
             width: 165px;
-            min-height: unset;
+            min-height: 85px;
             p {
               font-size: 1rem;
             }
           }
           @include desktop {
             width: 200px;
-            min-height: unset;
+            min-height: 85px;
             p {
               font-size: 1.5rem;
             }
@@ -98,6 +100,80 @@ body {
         @include desktop {
           right: 40px;
           bottom: 10px;
+        }
+      }
+    }
+  }
+}
+.modal-overlay {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  z-index: 1500;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+}
+.modal-container {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 1600;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .modal {
+    min-height: 150px;
+    width: 90%;
+    background-color: $color-light-grey;
+    border: 2px solid $color-danger-dark;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    @include tablet {
+      min-height: unset;
+      height: 250px;
+      width: 450px;
+    }
+    .inner-modal {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        font-size: 1.5rem;
+      }
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        @include tablet {
+          flex-direction: row;
+        }
+        .btn-secondary,
+        .btn-danger {
+          width: 100%;
+          min-width: unset;
+          min-height: 40px;
+          p {
+            font-size: 1rem;
+          }
+          @include tablet {
+            width: 200px;
+            min-height: 85px;
+            p {
+              font-size: 1.5rem;
+            }
+          }
+          @include desktop {
+          }
         }
       }
     }

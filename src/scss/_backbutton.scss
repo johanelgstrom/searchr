@@ -1,0 +1,28 @@
+@import "elements";
+.back-btn-container {
+  position: absolute;
+  top: 65px;
+  @include tablet {
+    top: 80px;
+  }
+  @include desktop {
+    top: 100px;
+  }
+  .btn-main {
+    min-width: unset;
+    width: 150px;
+    height: 45px;
+    margin-left: 25px;
+    a {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        height: 30px;
+        color: $color-white;
+      }
+    }
+  }
+}

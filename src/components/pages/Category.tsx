@@ -3,6 +3,7 @@ import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import "../../scss/category.scss";
 import { Link, Navigate } from "react-router-dom";
+import { BackButton } from "../BackButton";
 
 interface ICategoryProps {
   list: Array<any>;
@@ -28,6 +29,7 @@ export const Category = (props: ICategoryProps) => {
   // };
   return (
     <>
+      <BackButton link="/dashboard" />
       <section className="category m-standard">
         <div className="content-standard">
           <div className="heading-container">

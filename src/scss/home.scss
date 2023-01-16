@@ -3,23 +3,92 @@ body {
   background-color: $color-main;
 }
 .home {
-  height: calc(100vh - 175px);
-  @include tablet {
-    height: calc(100vh - 195px);
-  }
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
   @include desktop {
-    height: calc(100vh - 295px);
+    margin-bottom: 30px;
   }
-  .content-standard {
+
+  .content-container {
     height: 100%;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    position: relative;
-
-    .middle-start-container {
+    @include desktop {
+      justify-content: space-between;
     }
+    .video-container {
+      height: 100%;
+      width: 100%;
+      @include desktop {
+        width: 75%;
+      }
+      video {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        @include desktop {
+          border-radius: 0 20px 20px 0;
+        }
+      }
+      .flip-vid {
+        transform: scaleX(-1);
+      }
+      .pos-right {
+        object-position: right;
+      }
+    }
+    .cta-container {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      border: 2px solid $color-main;
+      height: unset;
+      min-height: 550px;
+      min-width: 250px;
+      background-color: rgba(0, 0, 0, 0.5);
+      @include desktop {
+        width: 25%;
+        position: relative;
+        top: unset;
+        height: 100%;
+        background-color: unset;
+      }
+      .heading-container {
+        position: relative;
+        z-index: 300;
+      }
+      .btn {
+        height: 120px;
+      }
+    }
+    .middle-start-container {
+      height: unset;
+      min-height: 50%;
+      gap: 20px;
+      width: 100%;
+      @include desktop {
+        width: 50%;
+        gap: 10px;
+      }
+      p {
+        font-size: 1.2rem;
+        color: $color-white;
+        margin: 0;
+        text-align: center;
+      }
+    }
+  }
+  .reverse {
+    flex-direction: row-reverse !important;
   }
 }

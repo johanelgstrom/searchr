@@ -17,7 +17,6 @@ export const Dashboard = (props: IDashboardProps) => {
   const [objectList, setObjectList] = useState<Array<any>>([]);
   useEffect(() => {
     props.checkifLoggedIn(props.cookies.userData);
-    console.log(props.cookies.userData);
 
     axios.get("http://localhost:8000/post/all-people").then((response) => {
       setPeopleList(response.data);
@@ -42,7 +41,7 @@ export const Dashboard = (props: IDashboardProps) => {
                 <h1>dashboard</h1>
               </div>
               <div className="cta-container">
-                <div className="btn btn-main">
+                <div className="btn btn-main" id="create-btn">
                   <Link to="/create-post">
                     <p>Create post</p>
                   </Link>
@@ -55,17 +54,20 @@ export const Dashboard = (props: IDashboardProps) => {
               <SmallCards
                 list={peopleList}
                 heading="Missing people"
-                category="people"
+                category="People"
+                bypass={false}
               />
               <SmallCards
                 list={animalList}
                 heading="Missing pets"
-                category="animal"
+                category="Animal"
+                bypass={false}
               />
               <SmallCards
                 list={objectList}
                 heading="Missing objects"
-                category="object"
+                category="Object"
+                bypass={false}
               />
             </div>
           </section>

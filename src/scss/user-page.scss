@@ -1,0 +1,24 @@
+@import "elements";
+body {
+  background-color: $color-main;
+}
+.user-page {
+  // min-height: calc(100vh - 175px);
+  // @include tablet {
+  //   min-height: calc(100vh - 195px);
+  // }
+  // @include desktop {
+  //   min-height: calc(100vh - 295px);
+  // }
+  .content-standard {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .middle-container {
+    }
+  }
+}

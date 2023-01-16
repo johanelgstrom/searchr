@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../../scss/dashboard.scss";
 import axios from "axios";
 import { SmallCards } from "../SmallCards";
+import { BackButton } from "../BackButton";
 
 export const Browse = () => {
   const [peopleList, setPeopleList] = useState<Array<any>>([]);
@@ -21,6 +22,7 @@ export const Browse = () => {
   }, []);
   return (
     <>
+      <BackButton link="/" />
       <section className="dashboard m-standard">
         <div className="content-standard">
           <div className="heading-container">
@@ -34,16 +36,19 @@ export const Browse = () => {
             list={peopleList}
             heading="Missing people"
             category="people"
+            bypass={false}
           />
           <SmallCards
             list={animalList}
             heading="Missing pets"
             category="animal"
+            bypass={false}
           />
           <SmallCards
             list={objectList}
             heading="Missing objects"
             category="object"
+            bypass={false}
           />
         </div>
       </section>

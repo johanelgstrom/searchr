@@ -6,6 +6,7 @@ interface ISmallCardsProps {
   list: Array<any>;
   heading: string;
   category: string;
+  bypass: boolean;
 }
 
 export const SmallCards = (props: ISmallCardsProps) => {
@@ -17,9 +18,10 @@ export const SmallCards = (props: ISmallCardsProps) => {
         </div>
         <div className="small-card-container">
           {props.list.map((object, index) => {
-            console.log(object);
-
-            if (index < 6 && object.found === false) {
+            if (
+              (index < 6 && object.found === false) ||
+              props.bypass === true
+            ) {
               return (
                 <Link to={`/post/${object._id}`}>
                   <div className="small-card" key={object._id}>
@@ -39,13 +41,13 @@ export const SmallCards = (props: ISmallCardsProps) => {
           })}
           {props.list.length === 0 ? (
             <div className="empty-container">
-              <p>Nothing missing right now</p>
+              <p>Nothing here right now</p>
             </div>
           ) : (
             <></>
           )}
         </div>
-        {props.list.length > 6 ? (
+        {props.list.length > 6 && props.category !== "profile" ? (
           <div className="btn btn-secondary">
             <Link to={`/post/${props.category}`}>
               <p>See all</p>

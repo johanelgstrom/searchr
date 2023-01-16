@@ -30,7 +30,7 @@ export const _template = (props: ITemplateProps) => {
   // };
   return (
     <>
-      {props.loggedInResponse ? (
+      {props.loggedInResponse && props.cookies.userData !== undefined ? (
         <>
           <section className="template m-standard">
             <div className="content-standard">

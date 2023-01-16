@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { ChangeEvent, useEffect, useState } from "react";
 import "../../scss/login.scss";
 import { Navigate } from "react-router-dom";
+import { BackButton } from "../BackButton";
 
 interface ILogin {
   checkifLoggedIn(cookie: string): void;
@@ -30,8 +31,6 @@ export const Login = (props: ILogin) => {
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(username);
-    console.log(password);
     axios({
       method: "post",
       url: "http://localhost:8000/login/login",
@@ -40,14 +39,12 @@ export const Login = (props: ILogin) => {
         password: password,
       },
     }).then((response) => {
-      console.log(response.status);
       if (
         response.data === "wrong password" ||
         response.data === "wrong username"
       ) {
         setErrorMsg(true);
       } else {
-        console.log(response.data);
         props.setCookie("userData", response.data, {
           path: "/",
           expires: new Date(Date.now() + 8592000000000),
@@ -68,40 +65,45 @@ export const Login = (props: ILogin) => {
           {loginComplete ? (
             <Navigate to="/dashboard" />
           ) : (
-            <section className="login m-standard">
-              <div className="content-standard">
-                <div className="heading-start-container">
-                  <h1>Login</h1>
+            <>
+              <BackButton link="/" />
+              <section className="login m-standard">
+                <div className="content-standard">
+                  <div className="heading-start-container">
+                    <h1>Login</h1>
+                  </div>
+                  <div className="middle-start-container">
+                    {errorMsg ? (
+                      <p className="text-red">Wrong username and/or password</p>
+                    ) : (
+                      <></>
+                    )}
+                    <form onSubmit={handleSubmit}>
+                      <label>Username</label>
+                      <input
+                        name="username"
+                        onChange={handleUsername}
+                        value={username}
+                        required
+                        id="username"
+                      ></input>
+                      <label>Password</label>
+                      <input
+                        name="password"
+                        type="password"
+                        onChange={handlePassword}
+                        value={password}
+                        id="password"
+                        required
+                      ></input>
+                      <button type="submit" className="btn btn-main" id="login">
+                        <p>Log in</p>
+                      </button>
+                    </form>
+                  </div>
                 </div>
-                <div className="middle-start-container">
-                  {errorMsg ? (
-                    <p className="text-red">Wrong username and/or password</p>
-                  ) : (
-                    <></>
-                  )}
-                  <form onSubmit={handleSubmit}>
-                    <input
-                      placeholder="Username"
-                      name="username"
-                      onChange={handleUsername}
-                      value={username}
-                      required
-                    ></input>
-                    <input
-                      placeholder="Password"
-                      name="password"
-                      type="password"
-                      onChange={handlePassword}
-                      value={password}
-                      required
-                    ></input>
-                    <button type="submit" className="btn btn-main">
-                      <p>Log in</p>
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </section>
+              </section>
+            </>
           )}
         </>
       )}

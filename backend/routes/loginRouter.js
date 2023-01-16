@@ -96,7 +96,7 @@ loginRouter.post("/ifLoggedIn", async (req, res) => {
       res.sendStatus(404);
     }
   } else {
-    res.sendStatus(401);
+    res.sendStatus(204);
   }
 });
 

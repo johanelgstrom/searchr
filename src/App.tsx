@@ -14,6 +14,7 @@ import { Post } from "./components/pages/Post";
 import { Category } from "./components/pages/Category";
 import { Browse } from "./components/pages/Browse";
 import { JoinSearch } from "./components/pages/JoinSearch";
+import { UserPage } from "./components/pages/UserPage";
 function App() {
   const checkIfLoggedIn = async (cookie: string) => {
     await axios({
@@ -159,6 +160,16 @@ function App() {
             path="/join/:id"
             element={
               <JoinSearch
+                checkifLoggedIn={checkIfLoggedIn}
+                cookies={cookies}
+                loggedInResponse={loggedInResponse}
+              />
+            }
+          ></Route>
+          <Route
+            path="/profile"
+            element={
+              <UserPage
                 checkifLoggedIn={checkIfLoggedIn}
                 cookies={cookies}
                 loggedInResponse={loggedInResponse}

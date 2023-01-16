@@ -31,17 +31,17 @@ postRouter.post("/:id/check-author", async (req, res) => {
 });
 
 postRouter.get("/all-people", async (req, res) => {
-  postModel.find({ category: "people" }, async (err, list) => {
+  postModel.find({ category: "People" }, async (err, list) => {
     res.send(list);
   });
 });
 postRouter.get("/all-animals", async (req, res) => {
-  postModel.find({ category: "animal" }, async (err, list) => {
+  postModel.find({ category: "Animal" }, async (err, list) => {
     res.send(list);
   });
 });
 postRouter.get("/all-objects", async (req, res) => {
-  postModel.find({ category: "object" }, async (err, list) => {
+  postModel.find({ category: "Object" }, async (err, list) => {
     res.send(list);
   });
 });
@@ -72,7 +72,7 @@ postRouter.post("/create-post", async (req, res) => {
       found: false,
     });
     await newPost.save();
-    user.posts.push(newPost);
+    user.posts.push(newPost._id);
     await user.save();
     res.send(newPost._id);
   });
@@ -190,6 +190,59 @@ postRouter.put("/:id/edit", async (req, res) => {
         }
       });
     });
+  }
+});
+
+postRouter.delete("/:id/delete", async (req, res) => {
+  const { userData } = req.body;
+  const stringId = req.params.id;
+  const isValid = MongoDB.ObjectId.isValid(stringId);
+  const decodedData = jwt.decode(userData, process.env.JWTSECRET);
+  const username = decodedData.username;
+  if (isValid) {
+    const objectId = MongoDB.ObjectId(stringId);
+    userModel.findOne({ username }, async (err, user) => {
+      userModel.updateOne(
+        { username },
+        { $pull: { posts: objectId } },
+        function (err) {
+          console.log("post removed from user");
+        }
+      );
+      postModel.findOneAndRemove({ _id: objectId }, async (err, post) => {
+        if (post) {
+          console.log("post removed");
+        }
+      });
+      await user.save();
+      res.sendStatus(200);
+    });
+  }
+});
+
+postRouter.post("/get-user-posts", async (req, res) => {
+  const { userData } = req.body;
+  const decodedData = jwt.decode(userData, process.env.JWTSECRET);
+  const username = decodedData.username;
+  if (decodedData) {
+    userModel.findOne({ username }, async (err, user) => {
+      if (user) {
+        let postArray = [];
+        for (let i = 0; i < user.posts.length; i++) {
+          let id = user.posts[i];
+
+          const post = await postModel.findOne({ _id: id });
+          if (post) {
+            postArray.push(post);
+          }
+        }
+        res.send(postArray);
+      } else {
+        res.sendStatus(404);
+      }
+    });
+  } else {
+    res.sendStatus(201);
   }
 });
 

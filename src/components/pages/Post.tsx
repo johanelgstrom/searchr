@@ -12,6 +12,7 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { LatLng, LatLngExpression } from "leaflet";
+import { BackButton } from "../BackButton";
 
 interface IPostProps {
   checkifLoggedIn(cookie: string): void;
@@ -33,6 +34,8 @@ export const Post = (props: IPostProps) => {
   const [searches, setSearches] = useState<Array<any>>([]);
   const [author, setAuthor] = useState<boolean>(false);
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [modalState, setModalState] = useState<boolean>(false);
+  const [deleted, setDeleted] = useState<boolean>(false);
   let jsxArray: Array<JSX.Element> = [];
   const colorArray = [
     { color: "lime" },
@@ -119,11 +122,25 @@ export const Post = (props: IPostProps) => {
           description: description,
           category: category,
         },
-      }).then((response) => {
-        console.log(response);
-      });
+      }).then((response) => {});
       setEditMode(false);
     }
+  };
+  const handleModal = () => {
+    setModalState(!modalState);
+  };
+  const handleDelete = () => {
+    axios({
+      method: "delete",
+      url: `http://localhost:8000/post/${id}/delete`,
+      data: {
+        userData: props.cookies.userData,
+      },
+    }).then((response) => {
+      if (response.status === 200) {
+        setDeleted(true);
+      }
+    });
   };
   const handleDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
@@ -163,6 +180,33 @@ export const Post = (props: IPostProps) => {
 
   return (
     <>
+      {modalState ? (
+        <>
+          <div className="modal-overlay"></div>
+          <div className="modal-container">
+            <div className="modal">
+              <div className="inner-modal">
+                <p>Remove the post?</p>
+                <div className="button-container">
+                  <div className="btn btn-secondary" onClick={handleModal}>
+                    <p>Cancel</p>
+                  </div>
+                  <div
+                    className="btn btn-danger"
+                    onClick={handleDelete}
+                    id="confirm-delete-btn"
+                  >
+                    <p>Delete</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+      <BackButton link="/dashboard" />
       <section className="post m-standard">
         <div className="content-standard">
           <div className="vertical-card">
@@ -173,9 +217,10 @@ export const Post = (props: IPostProps) => {
                   onChange={handleTitle}
                   value={title}
                   required
+                  id="title-input"
                 ></input>
               ) : (
-                <h1>{title}</h1>
+                <h1 id="title">{title}</h1>
               )}
             </div>
             <div className="big-image-container">
@@ -188,22 +233,28 @@ export const Post = (props: IPostProps) => {
                   name="description"
                   onChange={handleDescription}
                   value={description}
+                  id="description-input"
                 ></textarea>
               ) : (
-                <p>{description}</p>
+                <p id="description">{description}</p>
               )}
             </div>
             <div className="info-container">
               <h2>Category</h2>
 
               {editMode ? (
-                <select onChange={handleCategory} name="category" required>
-                  <option value="people">People</option>
-                  <option value="animal">Animals</option>
-                  <option value="object">Objects</option>
+                <select
+                  onChange={handleCategory}
+                  name="category"
+                  required
+                  id="category-select"
+                >
+                  <option value="People">People</option>
+                  <option value="Animal">Animals</option>
+                  <option value="Object">Objects</option>
                 </select>
               ) : (
-                <p>{category}</p>
+                <p id="category">{category}</p>
               )}
             </div>
             <div className="map-container">
@@ -225,7 +276,9 @@ export const Post = (props: IPostProps) => {
             </div>
             {found ? (
               <>
-                <li className="found-li">Found</li>
+                <li className="found-li" id="found-li">
+                  Found
+                </li>
               </>
             ) : (
               <>
@@ -236,17 +289,32 @@ export const Post = (props: IPostProps) => {
               <>
                 <div className="join-button-container">
                   <div className="btn btn-secondary">
-                    <Link to={joinUrl}>
+                    <Link to={joinUrl} id="join-btn">
                       <p>Join search</p>
                     </Link>
                   </div>
                   {author ? (
                     <>
-                      <div className="btn btn-secondary" onClick={handleEdit}>
+                      <div
+                        className="btn btn-secondary"
+                        onClick={handleEdit}
+                        id="edit-btn"
+                      >
                         {editMode ? <p>Save</p> : <p>Edit post</p>}
                       </div>
-                      <div className="btn btn-secondary" onClick={handleFound}>
+                      <div
+                        className="btn btn-secondary"
+                        onClick={handleFound}
+                        id="found-btn"
+                      >
                         {found ? <p>Mark as lost</p> : <p>Mark as found</p>}
+                      </div>
+                      <div
+                        className="btn btn-danger"
+                        onClick={handleModal}
+                        id="delete-btn"
+                      >
+                        <p>Delete</p>
                       </div>
                     </>
                   ) : (
@@ -260,6 +328,7 @@ export const Post = (props: IPostProps) => {
           </div>
         </div>
       </section>
+      {deleted ? <Navigate to="/" /> : <></>}
     </>
   );
 };

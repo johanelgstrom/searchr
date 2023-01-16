@@ -3,7 +3,7 @@ import "../../scss/error.scss";
 export const Error = () => {
   return (
     <>
-      <section className="home m-standard">
+      <section className="error m-standard">
         <div className="content-standard">
           <div className="heading-start-container">
             <h1>Oops, you're not supposed to be here</h1>

@@ -59,3 +59,33 @@
     margin: 0;
   }
 }
+.btn-danger {
+  height: 100%;
+  width: 30%;
+  min-width: 180px;
+  border: 2px solid $color-danger-dark;
+  border-radius: 10px;
+  background-color: $color-danger-light;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: $color-danger-dark;
+  }
+  a,
+  a:visited {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  p {
+    font-size: 1.5rem;
+    color: $color-white;
+    margin: 0;
+  }
+}

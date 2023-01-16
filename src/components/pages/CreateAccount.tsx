@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { ChangeEvent, useEffect, useState } from "react";
 import "../../scss/create-account.scss";
 import { Navigate } from "react-router-dom";
+import { BackButton } from "../BackButton";
 
 interface ICreateAccountProps {
   checkifLoggedIn(cookie: string): void;
@@ -43,11 +44,6 @@ export const CreateAccount = (props: ICreateAccountProps) => {
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(name);
-    console.log(username);
-    console.log(email);
-    console.log(password);
-    console.log(passwordConfirm);
     axios({
       method: "post",
       url: "http://localhost:8000/login/register",
@@ -59,7 +55,6 @@ export const CreateAccount = (props: ICreateAccountProps) => {
         confirmPassword: passwordConfirm,
       },
     }).then((response) => {
-      console.log(response);
       if (
         response.data === "Username or email already exists" ||
         response.data === "Password don't match"
@@ -67,7 +62,6 @@ export const CreateAccount = (props: ICreateAccountProps) => {
         setErrorMsg(response.data);
         setErrorState(true);
       } else {
-        console.log(response.data);
         setCookie("userData", response.data, {
           path: "/",
           expires: new Date(Date.now() + 8592000000000),
@@ -87,59 +81,66 @@ export const CreateAccount = (props: ICreateAccountProps) => {
           {loginComplete ? (
             <Navigate to="/dashboard" />
           ) : (
-            <section className="login m-standard">
-              <div className="content-standard">
-                <div className="heading-start-container">
-                  <h1>Create Account</h1>
+            <>
+              <BackButton link="/" />
+              <section className="create-account m-standard">
+                <div className="content-standard">
+                  <div className="heading-start-container">
+                    <h1>Create Account</h1>
+                  </div>
+                  <div className="middle-start-container">
+                    {errorState ? (
+                      <p className="text-red">{errorMsg}</p>
+                    ) : (
+                      <></>
+                    )}
+                    <form onSubmit={handleSubmit}>
+                      <label>Name</label>
+                      <input
+                        name="name"
+                        onChange={handleName}
+                        value={name}
+                        required
+                      ></input>
+                      <label>Username</label>
+                      <input
+                        name="username"
+                        onChange={handleUsername}
+                        value={username}
+                        required
+                      ></input>
+                      <label>Email</label>
+                      <input
+                        name="email"
+                        onChange={handleEmail}
+                        value={email}
+                        type="email"
+                        required
+                      ></input>
+                      <label>Password</label>
+                      <input
+                        name="password"
+                        type="password"
+                        onChange={handlePassword}
+                        value={password}
+                        required
+                      ></input>
+                      <label>Confirm password</label>
+                      <input
+                        name="passwordConfirm"
+                        type="password"
+                        onChange={handlePasswordConfirm}
+                        value={passwordConfirm}
+                        required
+                      ></input>
+                      <button type="submit" className="btn btn-main">
+                        <p>Create</p>
+                      </button>
+                    </form>
+                  </div>
                 </div>
-                <div className="middle-start-container">
-                  {errorState ? <p className="text-red">{errorMsg}</p> : <></>}
-                  <form onSubmit={handleSubmit}>
-                    <input
-                      placeholder="Name"
-                      name="name"
-                      onChange={handleName}
-                      value={name}
-                      required
-                    ></input>
-                    <input
-                      placeholder="Username"
-                      name="username"
-                      onChange={handleUsername}
-                      value={username}
-                      required
-                    ></input>
-                    <input
-                      placeholder="Email"
-                      name="email"
-                      onChange={handleEmail}
-                      value={email}
-                      type="email"
-                      required
-                    ></input>
-                    <input
-                      placeholder="Password"
-                      name="password"
-                      type="password"
-                      onChange={handlePassword}
-                      value={password}
-                      required
-                    ></input>
-                    <input
-                      placeholder="Confirm password"
-                      name="passwordConfirm"
-                      type="password"
-                      onChange={handlePasswordConfirm}
-                      value={passwordConfirm}
-                      required
-                    ></input>
-                    <button type="submit" className="btn btn-main">
-                      <p>Create</p>
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </section>
+              </section>
+            </>
           )}
         </>
       )}

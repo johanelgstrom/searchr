@@ -15,7 +15,6 @@ export const Header = (props: IHeaderProps) => {
   const [burgerState, setBurgerState] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [logout, setLogout] = useState<boolean>(false);
-  console.log("HEADERRRRRRRR");
   useEffect(() => {
     axios({
       method: "post",
@@ -26,7 +25,6 @@ export const Header = (props: IHeaderProps) => {
     }).then((response) => {
       setName(response.data.username);
     });
-    console.log(props.loggedInResponse);
   }, [props.cookies.userData]);
   const handleBurger = () => {
     setBurgerState(!burgerState);
@@ -51,7 +49,11 @@ export const Header = (props: IHeaderProps) => {
                 </h3>
               </div>
               {props.cookies.userData !== undefined ? (
-                <div className="right-container" onClick={handleBurger}>
+                <div
+                  className="right-container"
+                  onClick={handleBurger}
+                  id="burger-container"
+                >
                   <div
                     className={
                       burgerState
@@ -85,9 +87,15 @@ export const Header = (props: IHeaderProps) => {
                 <h2>Hello {name}</h2>
                 <div className="inner-menu">
                   <div className="btn btn-secondary">
-                    <p>Profile</p>
+                    <Link to="/profile" onClick={handleBurger}>
+                      <p>Profile</p>
+                    </Link>
                   </div>
-                  <div className="btn btn-secondary" onClick={logoutHandeler}>
+                  <div
+                    className="btn btn-secondary"
+                    onClick={logoutHandeler}
+                    id="logout-btn"
+                  >
                     <p>Log out</p>
                   </div>
                 </div>
