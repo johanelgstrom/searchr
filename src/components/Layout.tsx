@@ -1,10 +1,9 @@
-import { useState, VoidFunctionComponent } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Header } from "./Header";
 
 interface ILayoutProps {
   checkifLoggedIn(cookie: string): void;
-  cookies: { [x: string]: any };
+  cookies: { [x: string]: string };
   loggedInResponse: boolean;
   removeCookie(cookie: string): void;
 }

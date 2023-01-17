@@ -2,14 +2,14 @@ import axios from "axios";
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import "../../scss/create-post.scss";
 import { Navigate } from "react-router-dom";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { latLng, LatLngExpression } from "leaflet";
+import { LatLngExpression, Map } from "leaflet";
 import { BackButton } from "../BackButton";
 
 interface ICreatePostProps {
   checkifLoggedIn(cookie: string): void;
-  cookies: { [x: string]: any };
+  cookies: { [x: string]: string };
   loggedInResponse: boolean;
 }
 
@@ -26,7 +26,7 @@ export const CreatePost = (props: ICreatePostProps) => {
     62.633093, 16.084296,
   ]);
   const zoom: number = 4;
-  const [map, setMap] = useState<any>(null);
+  const [map, setMap] = useState<Map | null>(null);
 
   const displayMap = useMemo(
     () => (

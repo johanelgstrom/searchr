@@ -1,24 +1,40 @@
-//standard page template, not in use
 import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../../scss/user-page.scss";
 import { Navigate } from "react-router-dom";
 import { SmallCards } from "../SmallCards";
 import { BackButton } from "../BackButton";
+import { LatLng } from "leaflet";
+
+interface ISearchResponse {
+  coordinates: LatLng[];
+  userId: string;
+}
+
+interface IPost {
+  _id: string;
+  creator: string;
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+  imageUrl: string;
+  startingPoint: Array<number>;
+  searches: ISearchResponse[];
+  found: boolean;
+}
 
 interface IUserPageProps {
   checkifLoggedIn(cookie: string): void;
-  cookies: { [x: string]: any };
+  cookies: { [x: string]: string };
   loggedInResponse: boolean;
 }
 
 export const UserPage = (props: IUserPageProps) => {
-  const [errorState, setErrorState] = useState<boolean>(false);
-  const [errorMsg, setErrorMsg] = useState<string>("");
   const [name, setName] = useState<string>("");
-  const [allPosts, setAllPosts] = useState<Array<any>>([]);
-  const [activePosts, setActivePosts] = useState<Array<any>>([]);
-  const [foundPosts, setFoundPosts] = useState<Array<any>>([]);
+  const [allPosts, setAllPosts] = useState<IPost[]>([]);
+  const [activePosts, setActivePosts] = useState<IPost[]>([]);
+  const [foundPosts, setFoundPosts] = useState<IPost[]>([]);
   useEffect(() => {
     props.checkifLoggedIn(props.cookies.userData);
     axios({
@@ -42,21 +58,6 @@ export const UserPage = (props: IUserPageProps) => {
   }, []);
 
   useEffect(() => {
-    console.log(allPosts);
-
-    // let tempActive = [];
-    // let tempFound = [];
-    // for (let i = 0; i < allPosts.length; i++) {
-    //   console.log(allPosts[i]);
-
-    //   if (allPosts[i].found === false) {
-    //     tempActive.push(allPosts[i]);
-    //   } else {
-    //     tempFound.push(allPosts[i]);
-    //   }
-    // }
-    // setActivePosts(tempActive);
-    // setFoundPosts(tempFound);
     let tempActive = allPosts.filter((post) => post.found === false);
     let tempFound = allPosts.filter((post) => post.found === true);
     setActivePosts(tempActive);

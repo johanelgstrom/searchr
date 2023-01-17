@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useCookies } from "react-cookie";
+import axios, { AxiosResponse } from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import "../../scss/login.scss";
 import { Navigate } from "react-router-dom";
@@ -8,9 +7,9 @@ import { BackButton } from "../BackButton";
 interface ILogin {
   checkifLoggedIn(cookie: string): void;
   loggedInResponse: boolean;
-  cookies: { [x: string]: any };
-  setCookie(name: string, value: any, option?: any): void;
-  removeCookie(name: string, value: any, option?: any): void;
+  cookies: { [x: string]: string };
+  setCookie(name: string, value: AxiosResponse<string>, option?: object): void;
+  removeCookie(name: string, options?: object): void;
 }
 
 export const Login = (props: ILogin) => {

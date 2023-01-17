@@ -16,7 +16,7 @@ import { Spinner } from "../Spinner";
 
 interface IJoinSearchProps {
   checkifLoggedIn(cookie: string): void;
-  cookies: { [x: string]: any };
+  cookies: { [x: string]: string };
   loggedInResponse: boolean;
 }
 
@@ -57,7 +57,7 @@ export const JoinSearch = (props: IJoinSearchProps) => {
       }
     });
   }, []);
-  const success = (position: any) => {
+  const success = (position: GeolocationPosition) => {
     const latLngLocation = new LatLng(
       position.coords.latitude,
       position.coords.longitude
@@ -75,50 +75,6 @@ export const JoinSearch = (props: IJoinSearchProps) => {
     maximumAge: 60000,
     timeout: 57000,
   };
-  // const HandlePins = () => {
-  //   console.log("här e ja");
-
-  //   return (
-  //     <Fragment>
-  //       <>
-  //         {markers.map((position, i) => {
-  //           console.log(position);
-  //           console.log(markers);
-  //           <Marker key={i} position={position}>
-  //             <Popup>Starting point</Popup>
-  //           </Marker>;
-  //         })}
-  //       </>
-  //     </Fragment>
-  //   );
-  // };
-
-  // setInterval(() => {
-  //   const xd = () => {
-  //     LocationMarker();
-  //   };
-  // }, 5000);
-
-  // function LocationMarker() {
-  //   const [position, setPosition] = useState<LatLngExpression>({
-  //     lat: 0,
-  //     lng: 0,
-  //   });
-
-  //   useEffect(() => {
-  //     map.locate().on("locationfound", function (e) {
-  //       console.log(e.latlng);
-
-  //       setPosition(e.latlng);
-  //       map.flyTo(e.latlng, 18);
-  //       const radius = e.accuracy;
-  //       const circle = L.circle(e.latlng, 3);
-  //       circle.addTo(map);
-  //     });
-  //   }, [map]);
-
-  //   return position === null ? null : <Marker position={position}></Marker>;
-  // }
 
   const MapComponent = () => {
     const map = useMap();
@@ -143,7 +99,7 @@ export const JoinSearch = (props: IJoinSearchProps) => {
       return () => {
         window.clearInterval(interval.current);
         interval.current = 0;
-      }; // clean up interval on unmount
+      };
     }, []);
 
     return (
@@ -175,21 +131,6 @@ export const JoinSearch = (props: IJoinSearchProps) => {
       }
     });
   };
-  // const handlePosition = (lat: any, long: any) => {
-  //   console.log(lat);
-  //   console.log(long);
-  // };
-
-  // const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   axios({
-  //     method: "post",
-  //     url: "http://localhost:8000/x",
-  //     data: {},
-  //   }).then((response) => {
-  //     console.log(response);
-  //   });
-  // };
   return (
     <>
       {props.loggedInResponse && props.cookies.userData !== undefined ? (

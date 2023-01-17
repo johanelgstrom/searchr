@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { Error } from "./Error";
 import "../../scss/dashboard.scss";
 import { Spinner } from "../Spinner";
 import axios from "axios";
 import { SmallCards } from "../SmallCards";
+interface IList {
+  _id: string;
+  title: string;
+  description: string;
+  found: boolean;
+}
 interface IDashboardProps {
   checkifLoggedIn(cookie: string): void;
-  cookies: { [x: string]: any };
+  cookies: { [x: string]: string };
   loggedInResponse: boolean;
 }
 export const Dashboard = (props: IDashboardProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [peopleList, setPeopleList] = useState<Array<any>>([]);
-  const [animalList, setAnimalList] = useState<Array<any>>([]);
-  const [objectList, setObjectList] = useState<Array<any>>([]);
+  const [peopleList, setPeopleList] = useState<IList[]>([]);
+  const [animalList, setAnimalList] = useState<IList[]>([]);
+  const [objectList, setObjectList] = useState<IList[]>([]);
   useEffect(() => {
     props.checkifLoggedIn(props.cookies.userData);
 

@@ -6,7 +6,7 @@ import catVid from "../../assets/cat-vid.mp4";
 
 interface IHomeProps {
   checkifLoggedIn(cookie: string): void;
-  cookies: { [x: string]: any };
+  cookies: { [x: string]: string };
   loggedInResponse: boolean;
 }
 

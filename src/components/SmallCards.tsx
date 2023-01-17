@@ -2,8 +2,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../scss/small-cards.scss";
 
+interface IList {
+  _id: string;
+  title: string;
+  description: string;
+  found: boolean;
+}
+
 interface ISmallCardsProps {
-  list: Array<any>;
+  list: IList[];
   heading: string;
   category: string;
   bypass: boolean;
@@ -23,8 +30,8 @@ export const SmallCards = (props: ISmallCardsProps) => {
               props.bypass === true
             ) {
               return (
-                <Link to={`/post/${object._id}`}>
-                  <div className="small-card" key={object._id}>
+                <Link to={`/post/${object._id}`} key={object._id}>
+                  <div className="small-card">
                     <div className="img-container">
                       <img
                         src={`http://localhost:8000/post/img/${object._id}`}

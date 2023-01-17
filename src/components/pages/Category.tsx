@@ -1,32 +1,20 @@
-//standard page template, not in use
-import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
 import "../../scss/category.scss";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BackButton } from "../BackButton";
 
+interface IList {
+  _id: string;
+  title: string;
+  description: string;
+}
+
 interface ICategoryProps {
-  list: Array<any>;
+  list: IList[];
   heading: string;
   category: string;
 }
 
 export const Category = (props: ICategoryProps) => {
-  const [errorState, setErrorState] = useState<boolean>(false);
-  const [errorMsg, setErrorMsg] = useState<string>("");
-
-  useEffect(() => {}, []);
-
-  // const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   axios({
-  //     method: "post",
-  //     url: "http://localhost:8000/x",
-  //     data: {},
-  //   }).then((response) => {
-  //     console.log(response);
-  //   });
-  // };
   return (
     <>
       <BackButton link="/dashboard" />

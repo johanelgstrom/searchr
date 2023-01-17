@@ -1,12 +1,11 @@
 import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import "../scss/header.scss";
-import Cookies from "react-cookie";
 
 interface IHeaderProps {
   checkifLoggedIn(cookie: string): void;
-  cookies: { [x: string]: any };
+  cookies: { [x: string]: string };
   loggedInResponse: boolean;
   removeCookie(cookie: string): void;
 }

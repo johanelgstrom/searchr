@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import { Layout } from "./components/Layout";
@@ -15,6 +15,14 @@ import { Category } from "./components/pages/Category";
 import { Browse } from "./components/pages/Browse";
 import { JoinSearch } from "./components/pages/JoinSearch";
 import { UserPage } from "./components/pages/UserPage";
+
+interface IList {
+  _id: string;
+  title: string;
+  description: string;
+  found: boolean;
+}
+
 function App() {
   const checkIfLoggedIn = async (cookie: string) => {
     await axios({
@@ -33,9 +41,9 @@ function App() {
   };
   const [cookies, setCookie, removeCookie] = useCookies<string>(["userData"]);
   const [loggedInResponse, setLoggedInResponse] = useState<boolean>(false);
-  const [peopleList, setPeopleList] = useState<Array<any>>([]);
-  const [animalList, setAnimalList] = useState<Array<any>>([]);
-  const [objectList, setObjectList] = useState<Array<any>>([]);
+  const [peopleList, setPeopleList] = useState<IList[]>([]);
+  const [animalList, setAnimalList] = useState<IList[]>([]);
+  const [objectList, setObjectList] = useState<IList[]>([]);
 
   useEffect(() => {
     axios.get("http://localhost:8000/post/all-people").then((response) => {

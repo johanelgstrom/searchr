@@ -7,16 +7,20 @@ import {
   Marker,
   Popup,
   TileLayer,
-  useMap,
   Polyline,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { LatLng, LatLngExpression } from "leaflet";
 import { BackButton } from "../BackButton";
 
+interface ISearchResponse {
+  coordinates: LatLng[];
+  userId: string;
+}
+
 interface IPostProps {
   checkifLoggedIn(cookie: string): void;
-  cookies: { [x: string]: any };
+  cookies: { [x: string]: string };
   loggedInResponse: boolean;
 }
 
@@ -31,7 +35,7 @@ export const Post = (props: IPostProps) => {
   const [startingPoint, setStartingPoint] = useState<LatLngExpression>([
     62.633093, 16.084296,
   ]);
-  const [searches, setSearches] = useState<Array<any>>([]);
+  const [searches, setSearches] = useState<ISearchResponse[]>([]);
   const [author, setAuthor] = useState<boolean>(false);
   const [editMode, setEditMode] = useState<boolean>(false);
   const [modalState, setModalState] = useState<boolean>(false);
@@ -172,7 +176,7 @@ export const Post = (props: IPostProps) => {
     return (
       <Fragment>
         {jsxArray.map((item, index) => {
-          return item;
+          return <Fragment key={index}>{item}</Fragment>;
         })}
       </Fragment>
     );

@@ -7,7 +7,7 @@ import { BackButton } from "../BackButton";
 
 interface ICreateAccountProps {
   checkifLoggedIn(cookie: string): void;
-  cookies: { [x: string]: any };
+  cookies: { [x: string]: string };
   loggedInResponse: boolean;
 }
 

@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "../../scss/dashboard.scss";
 import axios from "axios";
 import { SmallCards } from "../SmallCards";
 import { BackButton } from "../BackButton";
 
+interface IList {
+  _id: string;
+  title: string;
+  description: string;
+  found: boolean;
+}
+
 export const Browse = () => {
-  const [peopleList, setPeopleList] = useState<Array<any>>([]);
-  const [animalList, setAnimalList] = useState<Array<any>>([]);
-  const [objectList, setObjectList] = useState<Array<any>>([]);
+  const [peopleList, setPeopleList] = useState<IList[]>([]);
+  const [animalList, setAnimalList] = useState<IList[]>([]);
+  const [objectList, setObjectList] = useState<IList[]>([]);
   useEffect(() => {
     axios.get("http://localhost:8000/post/all-people").then((response) => {
       setPeopleList(response.data);
