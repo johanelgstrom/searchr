@@ -15,3 +15,4 @@ A couple of things have not been pushed up here for security and size reasons, w
 - Frontend starts with opening a terminal in the root and run "npm start"
 
 ## Made by Johan Elgström, Medieinsitutet Stockholm, 2022-2023
+19/12-22 - 18/1-23
