@@ -85,15 +85,17 @@ export const JoinSearch = (props: IJoinSearchProps) => {
         const updatedMarkers = [...markers];
 
         // these 4 lines are for testing
-        let a = Math.floor(Math.random() * 100);
-        let b = Math.floor(Math.random() * 100);
-        const latLngLocation = new LatLng(a, b);
-        updatedMarkers.push(latLngLocation);
+        // let a = Math.floor(Math.random() * 100);
+        // let b = Math.floor(Math.random() * 100);
+        // const latLngLocation = new LatLng(a, b);
+        // updatedMarkers.push(latLngLocation);
 
-        // updatedMarkers.push(currentPosition);
+        // production
+        updatedMarkers.push(currentPosition);
+
         setMarkers(updatedMarkers);
-        //ändra numret till typ 17 vid produktion
-        map.flyTo(latLngLocation, 4);
+        //ändra numret till typ 17 vid produktion, ca 4 vid test
+        map.flyTo(currentPosition, 17);
       }, 5000);
 
       return () => {
