@@ -8,7 +8,6 @@ As a user you could create a post with a description, picture and starting locat
 A couple of things have not been pushed up here for security and size reasons, which is the following:
 - .env (in the backend folder), which includes CONNECTION_STRING to a mongoDB database and JWT_SECRET for encyrpting sensitive login data.
 - public (in the backend folder), which includes an images folder where images of posts gets stored
-- 
 
 ## To start the project
 - Backend starts with opening a terminal in the backend folder and run "nodemon"
